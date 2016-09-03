@@ -167,30 +167,35 @@ public class ArticleListActivity extends AppCompatActivity implements
 
             mCursor.moveToPosition(position);
             holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
-            holder.subtitleView.setText(
+//            holder.subtitleView.setText(
+//                    DateUtils.getRelativeTimeSpanString(
+//                            mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
+//                            System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
+//                            DateUtils.FORMAT_ABBREV_ALL).toString()
+//                            + " by "
+//                            + mCursor.getString(ArticleLoader.Query.AUTHOR));
+            holder.subtitleView.setText(String.format(getString(R.string.list_subtitle),
                     DateUtils.getRelativeTimeSpanString(
                             mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
                             System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
-                            DateUtils.FORMAT_ABBREV_ALL).toString()
-                            + " by "
-                            + mCursor.getString(ArticleLoader.Query.AUTHOR));
+                            DateUtils.FORMAT_ABBREV_ALL).toString(),
+                    mCursor.getString(ArticleLoader.Query.AUTHOR))
+            );
 //            holder.thumbnailView.setImageUrl(
 //                    mCursor.getString(ArticleLoader.Query.THUMB_URL),
 //                    ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
 //            holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
 //            Log.v("PICASSO STRING URL", mCursor.getString(ArticleLoader.Query.THUMB_URL));
 
-            int width = holder.thumbnailView.getWidth();
-            int height = (int) (holder.thumbnailView.getWidth()/mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
-            Log.v("POSITION", String.valueOf(position));
-            Log.v("MEASURE", String.valueOf(width) + " , " + String.valueOf(height));
+//            int width = holder.thumbnailView.getWidth();
+//            int height = (int) (holder.thumbnailView.getWidth()/mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
+//            Log.v("POSITION", String.valueOf(position));
+//            Log.v("MEASURE", String.valueOf(width) + " , " + String.valueOf(height));
 
             Picasso.with(getApplicationContext())
                     .load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
                     .fit()
                     .into(holder.thumbnailView);
-
-
         }
 
         @Override
@@ -201,14 +206,12 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     //Viewholder for main page thumbnail
     public static class ViewHolder extends RecyclerView.ViewHolder {
-//        public DynamicHeightNetworkImageView thumbnailView;
         public ImageView thumbnailView;
         public TextView titleView;
         public TextView subtitleView;
 
         public ViewHolder(View view) {
             super(view);
-//            thumbnailView = (DynamicHeightNetworkImageView) view.findViewById(R.id.thumbnail);
             thumbnailView=(ImageView) view.findViewById(R.id.thumbnail);
             titleView = (TextView) view.findViewById(R.id.article_title);
             subtitleView = (TextView) view.findViewById(R.id.article_subtitle);

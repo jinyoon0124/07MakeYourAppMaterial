@@ -930,10 +930,11 @@ int string app_name 0x7f060024
 int string appbar_scrolling_view_behavior 0x7f060025
 int string bottom_sheet_behavior 0x7f060026
 int string character_counter_pattern 0x7f060027
+int string list_subtitle 0x7f060028
 int string search_menu_title 0x7f060013
 int string status_bar_notification_info_overflow 0x7f060014
-int string up 0x7f060028
-int string welcome_xyz_reader 0x7f060029
+int string up 0x7f060029
+int string welcome_xyz_reader 0x7f06002a
 int style AlertDialog_AppCompat 0x7f08008d
 int style AlertDialog_AppCompat_Light 0x7f08008e
 int style Animation_AppCompat_Dialog 0x7f08008f
