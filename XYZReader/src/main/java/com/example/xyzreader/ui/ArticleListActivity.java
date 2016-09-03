@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private CollapsingToolbarLayout mCollapsingLayout;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -44,10 +46,12 @@ public class ArticleListActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setLogo(R.drawable.logo);
+        mToolbar.setContentDescription(getString(R.string.app_name));
 
-
-        final View toolbarContainerView = findViewById(R.id.toolbar_container);
+//        final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
@@ -76,6 +80,9 @@ public class ArticleListActivity extends AppCompatActivity implements
         unregisterReceiver(mRefreshingReceiver);
     }
 
+
+
+
     private boolean mIsRefreshing = false;
 
     private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
@@ -88,9 +95,16 @@ public class ArticleListActivity extends AppCompatActivity implements
         }
     };
 
+
+
+
     private void updateRefreshingUI() {
         mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
     }
+
+
+
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -113,6 +127,10 @@ public class ArticleListActivity extends AppCompatActivity implements
         mRecyclerView.setAdapter(null);
     }
 
+
+
+
+    //Adapter to set thumbnail view
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
         private Cursor mCursor;
 
@@ -163,6 +181,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         }
     }
 
+    //Viewholder for main page thumbnail
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public DynamicHeightNetworkImageView thumbnailView;
         public TextView titleView;

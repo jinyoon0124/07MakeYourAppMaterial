@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.xyzreader.ui.ObservableScrollView
+    <!--<com.example.xyzreader.ui.ObservableScrollView-->
+    <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,14 +22,14 @@
                 <!--suppress AndroidLintContentDescription -->
                 <ImageView
                     android:id="@+id/photo"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                      />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="112dp"
-                    android:background="@drawable/photo_background_protection" />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="112dp"-->
+                    <!--android:background="@drawable/photo_background_protection" />-->
 
             </FrameLayout>
 
@@ -90,8 +91,8 @@
 
             </com.example.xyzreader.ui.MaxWidthLinearLayout>
         </FrameLayout>
-    </com.example.xyzreader.ui.ObservableScrollView>
-
+    <!--</com.example.xyzreader.ui.ObservableScrollView>-->
+    </ScrollView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share_fab"
         app:fabSize="normal"

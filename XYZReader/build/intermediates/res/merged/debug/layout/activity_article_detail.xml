@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--This is where the fragment comes in-->
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
