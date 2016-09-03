@@ -23,4 +23,5 @@
     <color name="theme_light">#E57373</color>
     <color name="theme_accent">#0E6E29</color>
     <color name="text_color">#6000</color>
+    <color name="text_color_main_view">#FFFFFF</color>
 </resources>
