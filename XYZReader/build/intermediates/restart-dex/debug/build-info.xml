@@ -4,30 +4,45 @@
     api-level="23"
     density="xxxhdpi"
     format="7"
-    timestamp="1035591489311485"
+    timestamp="1122242612295451"
     token="6975093179773849905" >
 
     <task
         name="javac"
-        duration="7945" />
+        duration="4131" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="508" />
+        duration="0" />
     <task
         name="verifier"
-        duration="2890" />
+        duration="0" />
 
     <artifact
-        location="D:\Android\AndroidProject_Udacity\07MakeYourAppMaterial\XYZReader\build\outputs\apk\XYZReader-debug.apk"
-        type="MAIN" />
+        location="D:\Android\AndroidProject_Udacity\07MakeYourAppMaterial\XYZReader\build\intermediates\res\resources-debug.ap_"
+        type="RESOURCES" />
 
-    <build timestamp="1035591489311485" >
+    <build timestamp="1120773272797658" >
         <artifact
             location="D:\Android\AndroidProject_Udacity\07MakeYourAppMaterial\XYZReader\build\outputs\apk\XYZReader-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="1122166413542266"
+        verifier="R_CLASS_CHANGE" >
+        <artifact
+            location="D:\Android\AndroidProject_Udacity\07MakeYourAppMaterial\XYZReader\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
+            type="DEX" />
+        <artifact
+            location="D:\Android\AndroidProject_Udacity\07MakeYourAppMaterial\XYZReader\build\intermediates\transforms\dex\debug\folders\1000\5\slice_1\classes.dex"
+            type="DEX" />
+    </build>
+    <build timestamp="1122242612295451" >
+        <artifact
+            location="D:\Android\AndroidProject_Udacity\07MakeYourAppMaterial\XYZReader\build\intermediates\res\resources-debug.ap_"
+            type="RESOURCES" />
     </build>
 
 </instant-run>
