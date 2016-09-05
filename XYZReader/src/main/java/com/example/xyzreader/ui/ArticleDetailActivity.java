@@ -3,27 +3,39 @@ package com.example.xyzreader.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.view.ScrollingView;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
+import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 /**
  * An activity representing a single Article detail screen, letting you swipe between articles.
@@ -38,8 +50,13 @@ public class ArticleDetailActivity extends AppCompatActivity
     private int mSelectedItemUpButtonFloor = Integer.MAX_VALUE;
     private int mTopInset;
 
+    private Toolbar mToolbar;
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
+    private ImageView header;
+    private TextView titleView;
+    private TextView bylineView;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     private View mUpButtonContainer;
     private View mUpButton;
 
@@ -64,31 +81,45 @@ public class ArticleDetailActivity extends AppCompatActivity
                         .getIntent(), getString(R.string.action_share)));
             }
         });
+
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_detail);
+        mToolbar.setLogo(R.drawable.logo);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+//        header = (ImageView) findViewById(R.id.header);
+//        titleView = (TextView) findViewById(R.id.article_title);
+//        bylineView = (TextView) findViewById(R.id.article_byline);
+//        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_detail);
+
         mPagerAdapter = new MyPagerAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
         mPager.setPageMargin((int) TypedValue
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
         mPager.setPageMarginDrawable(new ColorDrawable(0x22000000));
-
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-//                mUpButton.animate()
-//                        .alpha((state == ViewPager.SCROLL_STATE_IDLE) ? 1f : 0f)
-//                        .setDuration(300);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (mCursor != null) {
-                    mCursor.moveToPosition(position);
-                }
-                mSelectedItemId = mCursor.getLong(ArticleLoader.Query._ID);
-//                updateUpButtonPosition();
-            }
-        });
+//
+//        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//                super.onPageScrollStateChanged(state);
+////                mUpButton.animate()
+////                        .alpha((state == ViewPager.SCROLL_STATE_IDLE) ? 1f : 0f)
+////                        .setDuration(300);
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                if (mCursor != null) {
+//                    mCursor.moveToPosition(position);
+//                }
+//                mSelectedItemId = mCursor.getLong(ArticleLoader.Query._ID);
+////                updateUpButtonPosition();
+//            }
+//        });
 //
 //        mUpButtonContainer = findViewById(R.id.up_container);
 //
@@ -130,7 +161,8 @@ public class ArticleDetailActivity extends AppCompatActivity
 
 
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+
         return ArticleLoader.newAllArticlesInstance(this);
     }
 
@@ -146,6 +178,7 @@ public class ArticleDetailActivity extends AppCompatActivity
             while (!mCursor.isAfterLast()) {
                 if (mCursor.getLong(ArticleLoader.Query._ID) == mStartId) {
                     final int position = mCursor.getPosition();
+
                     mPager.setCurrentItem(position, false);
                     break;
                 }
@@ -167,13 +200,13 @@ public class ArticleDetailActivity extends AppCompatActivity
 //            updateUpButtonPosition();
 //        }
 //    }
+//
+//
+//    private void updateUpButtonPosition() {
+//        int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
+//        mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
+//    }
 
-/*
-    private void updateUpButtonPosition() {
-        int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
-        mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
-    }
-*/
 
 
 
@@ -185,20 +218,38 @@ public class ArticleDetailActivity extends AppCompatActivity
             super(fm);
         }
 
+
+
         //Where Page Viewer is getting fragment
         @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
             super.setPrimaryItem(container, position, object);
-            ArticleDetailFragment fragment = (ArticleDetailFragment) object;
-            if (fragment != null) {
-                mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
-//                updateUpButtonPosition();
+            if(mCursor!=null){
+                mCursor.moveToPosition(position);
+//                Picasso.with(ArticleDetailActivity.this)
+//                        .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
+//                        .into(header);
+//                collapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+//                collapsingToolbarLayout.setCollapsedTitleTextColor(getColor(R.color.text_color_main_view));
+//                collapsingToolbarLayout.setExpandedTitleColor(getColor(R.color.text_color_main_view));
+//                collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.DEFAULT_BOLD);
+//
+//                titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
+//                bylineView.setText(Html.fromHtml(
+//                        DateUtils.getRelativeTimeSpanString(
+//                                mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
+//                                System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
+//                                DateUtils.FORMAT_ABBREV_ALL).toString()
+//                                + " by "
+//                                + mCursor.getString(ArticleLoader.Query.AUTHOR)));
+
             }
         }
 
         @Override
         public Fragment getItem(int position) {
             mCursor.moveToPosition(position);
+
             return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID));
         }
 
