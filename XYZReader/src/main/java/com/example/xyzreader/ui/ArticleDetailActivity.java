@@ -47,18 +47,18 @@ public class ArticleDetailActivity extends AppCompatActivity
     private long mStartId;
 
     private long mSelectedItemId;
-    private int mSelectedItemUpButtonFloor = Integer.MAX_VALUE;
-    private int mTopInset;
+//    private int mSelectedItemUpButtonFloor = Integer.MAX_VALUE;
+//    private int mTopInset;
 
     private Toolbar mToolbar;
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
-    private ImageView header;
-    private TextView titleView;
-    private TextView bylineView;
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-    private View mUpButtonContainer;
-    private View mUpButton;
+//    private ImageView header;
+//    private TextView titleView;
+//    private TextView bylineView;
+//    private CollapsingToolbarLayout collapsingToolbarLayout;
+//    private View mUpButtonContainer;
+//    private View mUpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

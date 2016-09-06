@@ -7,8 +7,8 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="112dp"
-        android:elevation="4dp"
+        android:layout_height="@dimen/main_appbar_image_height"
+        android:elevation="@dimen/appbar_elevation"
         >
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolBar"
@@ -45,7 +45,8 @@
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/list_side_margin"
             android:paddingRight="@dimen/list_side_margin"
-            android:paddingBottom="4dp"
+            android:paddingBottom="@dimen/list_side_margin"
+
             />
 
     </android.support.v4.widget.SwipeRefreshLayout>

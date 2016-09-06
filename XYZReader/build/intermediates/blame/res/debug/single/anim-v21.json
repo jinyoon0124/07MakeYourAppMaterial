@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\Android\\AndroidProject_Udacity\\07MakeYourAppMaterial\\XYZReader\\build\\intermediates\\res\\merged\\debug\\anim-v21\\cardview_state_list_anim.xml",
+        "source": "D:\\Android\\AndroidProject_Udacity\\07MakeYourAppMaterial\\XYZReader\\src\\main\\res\\anim-v21\\cardview_state_list_anim.xml"
+    },
+    {
         "merged": "D:\\Android\\AndroidProject_Udacity\\07MakeYourAppMaterial\\XYZReader\\build\\intermediates\\res\\merged\\debug\\anim-v21\\fab_state_list_anim.xml",
         "source": "D:\\Android\\AndroidProject_Udacity\\07MakeYourAppMaterial\\XYZReader\\src\\main\\res\\anim-v21\\fab_state_list_anim.xml"
     },
